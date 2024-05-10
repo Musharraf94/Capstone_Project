@@ -1,4 +1,5 @@
-# Capstone Project: Predicting Stunting in Children
+# Capstone Project: The Analysis of Child Nutrition Status: For the Case of Uzbekistan
+
 
 ## Overview
 This repository contains all the code and data for my capstone project on predicting stunting in children under five years of age using machine learning. The project aims to identify the most significant predictors of stunting and to develop a predictive model that can be used to inform interventions.
