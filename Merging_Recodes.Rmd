@@ -1,0 +1,38 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(haven)
+library(labelled)
+library(dplyr)
+library(corrplot)
+library(caret)
+library(ggplot2)
+```
+
+```{r}
+bh <- read_sav("C:/Users/mmira/Desktop/ARIZONA/Capstone Project/data/bh.sav")
+ch <- read_sav("C:/Users/mmira/Desktop/ARIZONA/Capstone Project/data/ch.sav")
+wm <- read_sav("C:/Users/mmira/Desktop/ARIZONA/Capstone Project/data/wm.sav")
+```
+
+```{r}
+#Merging datasets
+merged_data_1 <- merge(bh,wm, by=c("HH1", "HH2", "LN"))
+merged_data_2 <- merge(merged_data_1, ch, by.x = c("HH1", "HH2", "BH8"), by.y = c("HH1", "HH2", "LN"))
+
+#Generating the data that consists of variables that will be used for the project.
+data <- merged_data_2[, c("HAZ2", "CAGE", "MN34", "brthord", "birthint", "BH3", "WB6A", "WB4", "CM11", "windex5",  "BH6", "HH6")]
+
+data <- subset(data, HAZ2<6) #removing don't know values
+data <- data[data$MN34<=5, ] #removing don't know values
+  
+data$stunting <- as.factor(ifelse(data$HAZ2<(-2), 1, 0)) #creating dummy dependent variable, where 1 means child is stunted.
+
+data <- na.omit(data) #removing NA values
+
+View(data)
+```
+
